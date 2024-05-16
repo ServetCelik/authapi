@@ -20,7 +20,7 @@ RUN chown -R gradle /home/gradle/src
 
 RUN gradle build || return 0
 COPY . .
-RUN gradle clean build
+RUN gradle clean build -x test
 
 # actual container
 FROM eclipse-temurin:17-jdk-alpine

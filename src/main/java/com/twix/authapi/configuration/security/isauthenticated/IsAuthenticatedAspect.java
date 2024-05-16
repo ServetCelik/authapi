@@ -23,12 +23,14 @@ public class IsAuthenticatedAspect {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IsAuthenticatedAspect.class);
 
-    @Pointcut("@annotation(nl.inventory_management.configuration.security.isauthenticated.IsAuthenticated)")
+   // @Pointcut("@annotation(nl.inventory_management.configuration.security.isauthenticated.IsAuthenticated)")
+    @Pointcut("@annotation(com.twix.authapi.configuration.security.isauthenticated.IsAuthenticated)")
+
     public void annotatedMethod() {
         //Empty method
     }
 
-    @Pointcut("@within(nl.inventory_management.configuration.security.isauthenticated.IsAuthenticated)")
+    @Pointcut("@within(com.twix.authapi.configuration.security.isauthenticated.IsAuthenticated)")
     public void annotatedClass() {
         //Empty method
     }

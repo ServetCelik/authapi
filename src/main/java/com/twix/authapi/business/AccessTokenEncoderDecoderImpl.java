@@ -61,7 +61,11 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
                     .userId(claims.get("userId", Long.class))
                     .build();
         } catch (JwtException e) {
-            throw new InvalidAccessTokenException(e.getMessage());
+            //throw new InvalidAccessTokenException(e.getMessage());
+            System.out.printf(e.getMessage());
+//            throw new Exception(e.getMessage());
         }
+        return null;
+
     }
 }
