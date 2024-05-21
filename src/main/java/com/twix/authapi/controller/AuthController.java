@@ -1,55 +1,37 @@
 package com.twix.authapi.controller;
 
-import com.twix.authapi.controller.dto.LoginUserRequest;
-import com.twix.authapi.controller.dto.LoginUserResponse;
+import com.twix.authapi.business.AuthService;
+import com.twix.authapi.business.UserSharable;
+import com.twix.authapi.configuration.security.isauthenticated.IsAuthenticated;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 @CrossOrigin("*")
 public class AuthController {
-    //
-//    @PostMapping("/save")
-//    public ResponseEntity<CreateUserResponse> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
-//        Employee employee = Employee.builder()
-//                .name(createUserRequest.getName())
-//                .lastName(createUserRequest.getLastName())
-//                .email(createUserRequest.getEmail())
-//                .build();
-//
-//        employee.setRoles(Set.of(
-//                EmployeeRole.builder()
-//                        .employee(employee)
-//                        .role(RoleEnum.NONE)
-//                        .build()));
-//
-//
-//        User user = User.builder()
-//                .userName(createUserRequest.getUserName())
-//                .password(createUserRequest.getPassword())
-//                .employee(employee)
-//                .build();
-//
-//        User responseEntity = createUserUseCase.createUser(user);
-//        CreateUserResponse response = UserConverter.userToCreateUserResponse(responseEntity);
-//
-//        return  ResponseEntity.status(HttpStatus.CREATED).body(response);
-//    }
-    @PostMapping("/login")
-    public ResponseEntity<LoginUserResponse> canLogin(@RequestBody @Valid LoginUserRequest loginUserRequest) {
-//        String responseString = loginUserUseCase.loginUser(loginUserRequest.getName(),loginUserRequest.getPassword());
-//        User loggedUser = getUserUseCase.getUserByName(loginUserRequest.getName());
-//        LoginUserResponse response = LoginUserResponse.builder()
-//                .accessToken(responseString)
-//                .userName(loggedUser.getUserName())
-//                .roles((loggedUser.getEmployee().getRoles().stream().map(EmployeeRole::getRole).toList().toString()))
-//                .build();
+ private final AuthService authService;
 
-        return ResponseEntity.ok(null);
+    @PostMapping("/generateAccessToken")
+    public ResponseEntity<String> generateAccessToken(@RequestBody UserSharable userSharable) {
+        try {
+            String token = authService.generateAccessToken(userSharable);
+            return ResponseEntity.ok(token);
+        } catch (Exception e) {
+            // Log the exception and return an appropriate error response
+            return ResponseEntity.badRequest().body("Error generating access token: " + e.getMessage());
+        }
     }
+    @IsAuthenticated
+    @GetMapping("/validate")
+    public ResponseEntity<?> validateRequest() {return ResponseEntity.ok().build();}
+//        String authToken = request.getHeader("Authorization");
+//        if (authToken == null || !authService.isValid(authToken)) {
+//            // If the token is not valid, return a 401 Unauthorized response
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//        }
+        // If the token is valid, return a 200 OK response
+
 }

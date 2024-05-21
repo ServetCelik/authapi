@@ -2,5 +2,6 @@ package com.twix.authapi.business;
 
 public interface AuthService {
 
-    String login(String name, String password);
+    String generateAccessToken(UserSharable user);
+    boolean isValid(String token);
 }

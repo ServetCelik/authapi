@@ -1,13 +1,3 @@
-#FROM eclipse-temurin:17-jdk-alpine
-#VOLUME /tmp
-#COPY build/libs/*.jar app.jar
-#ENTRYPOINT ["java","-jar","/app.jar"]
-
-
-# using multistage docker build
-# ref: https://docs.docker.com/develop/develop-images/multistage-build/
-
-# temp container to build using gradle
 FROM gradle:jdk17 AS TEMP_BUILD_IMAGE
 ENV APP_HOME=/usr/app/
 WORKDIR $APP_HOME
