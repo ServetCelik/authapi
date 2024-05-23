@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -26,12 +28,16 @@ public class AuthController {
     }
     @IsAuthenticated
     @GetMapping("/validate")
-    public ResponseEntity<?> validateRequest() {return ResponseEntity.ok().build();}
+    public void validate(HttpServletResponse response) {
+
 //        String authToken = request.getHeader("Authorization");
 //        if (authToken == null || !authService.isValid(authToken)) {
-//            // If the token is not valid, return a 401 Unauthorized response
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//        } else {
+//            response.setStatus(HttpServletResponse.SC_OK);
 //        }
-        // If the token is valid, return a 200 OK response
+
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
 
 }
