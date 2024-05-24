@@ -48,7 +48,7 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
     }
 
     @Override
-    public AccessToken decode(String accessTokenEncoded) {
+    public AccessToken decode(String accessTokenEncoded) throws InvalidAccessTokenException{
         try {
             Jwt jwt = Jwts.parserBuilder().setSigningKey(key).build().parse(accessTokenEncoded);
             Claims claims = (Claims) jwt.getBody();
@@ -62,10 +62,11 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
                     .build();
         } catch (JwtException e) {
             //throw new InvalidAccessTokenException(e.getMessage());
-            System.out.printf(e.getMessage());
+            throw new InvalidAccessTokenException("Invalid token: " + e.getMessage());
+//            System.out.printf(e.getMessage());
 //            throw new Exception(e.getMessage());
         }
-        return null;
+//        return null;
 
     }
 }

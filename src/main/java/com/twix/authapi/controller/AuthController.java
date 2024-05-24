@@ -29,6 +29,9 @@ public class AuthController {
     @IsAuthenticated
     @GetMapping("/validate")
     public void validate(HttpServletResponse response) {
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
+
 
 //        String authToken = request.getHeader("Authorization");
 //        if (authToken == null || !authService.isValid(authToken)) {
@@ -36,8 +39,5 @@ public class AuthController {
 //        } else {
 //            response.setStatus(HttpServletResponse.SC_OK);
 //        }
-
-        response.setStatus(HttpServletResponse.SC_OK);
-    }
 
 }

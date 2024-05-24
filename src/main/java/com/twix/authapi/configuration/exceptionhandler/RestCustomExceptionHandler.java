@@ -1,5 +1,6 @@
 package com.twix.authapi.configuration.exceptionhandler;
 
+import com.twix.authapi.business.exceptions.InvalidAccessTokenException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,11 @@ public class RestCustomExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleConstraintViolationException(final AccessDeniedException error) {
         log.error("Access Denied with status {} occurred {}", kv(STATUS_LOG_FIELD, HttpStatus.FORBIDDEN), error);
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+    }
+
+    @ExceptionHandler(InvalidAccessTokenException.class)
+    public ResponseEntity<Object> handleInvalidAccessToken(InvalidAccessTokenException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
     @Override
