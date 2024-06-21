@@ -7,7 +7,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
