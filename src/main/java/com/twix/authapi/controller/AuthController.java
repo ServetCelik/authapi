@@ -22,7 +22,6 @@ public class AuthController {
             String token = authService.generateAccessToken(userSharable);
             return ResponseEntity.ok(token);
         } catch (Exception e) {
-            // Log the exception and return an appropriate error response
             return ResponseEntity.badRequest().body("Error generating access token: " + e.getMessage());
         }
     }
@@ -31,13 +30,5 @@ public class AuthController {
     public void validate(HttpServletResponse response) {
         response.setStatus(HttpServletResponse.SC_OK);
     }
-
-
-//        String authToken = request.getHeader("Authorization");
-//        if (authToken == null || !authService.isValid(authToken)) {
-//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//        } else {
-//            response.setStatus(HttpServletResponse.SC_OK);
-//        }
 
 }
